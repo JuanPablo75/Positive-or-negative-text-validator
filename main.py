@@ -1,7 +1,6 @@
-punctuation_chars = ["'", '"', ",", ".", "!", ":", ";", '#', '@']
+punctuation_chars = ["'", '"', ",", ".", "!", ":", ";", '#', '@'] #elementos a limpiar
 
-
-def strip_punctuation(x):
+def strip_punctuation(x):   #funcion de limpieza de txt
     x = x.lower()
     new_str = ''
     for i in x:
@@ -19,7 +18,7 @@ with open("positive_words.txt") as pos_f:
             positive_words.append(lin.strip())
 
 
-def get_pos(word):
+def get_pos(word): #contador de palabras positivas en string
     count = 0
     word = strip_punctuation(word)
     word = word.lower().split()
@@ -28,7 +27,7 @@ def get_pos(word):
             count = count + 1
     return count
 
-
+# lists of words to use
 negative_words = []
 with open("negative_words.txt") as neg_f:
     for lin in neg_f:
@@ -36,7 +35,7 @@ with open("negative_words.txt") as neg_f:
             negative_words.append(lin.strip())
 
 
-def get_neg(word):
+def get_neg(word):   #contador de palabras negativas en string
     count = 0
     word = strip_punctuation(word)
     word = word.lower().split()
@@ -47,13 +46,11 @@ def get_neg(word):
 
 
 outfile = open('resulting_data.csv', 'w')
-
 outfile.write('Number of Retweets,Number of Replies,Positive Score,Negative Score,Net Score')
 outfile.write('\n')
 
 file_ref = open('project_twitter_data.csv', 'r')
-lines = file_ref.readlines()[1:]
-
+lines = file_ref.readlines()[1:]    #desde la linea 2 porque la linea 1 es el header
 for line in lines:
     positive_score = get_pos(line)  # using our pre-defined function
     negative_score = get_neg(line)
